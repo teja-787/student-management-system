@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Student Dashboard</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Student Dashboard</h1>
+        <p>Welcome, {{ student.name }}</p>
+
+        <form action="/logout" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+          <button class="btn danger" type="submit">Logout</button>
+        </form>
+      </header>
+
+      <section class="card">
+        <h2>My Academic Profile</h2>
+
+        <div class="profile-grid">
+          <div class="profile-item">
+            <span>Student Name</span>
+            <strong>{{ student.name }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Roll Number</span>
+            <strong>{{ student.roll_number }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Department</span>
+            <strong>{{ student.department }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Email</span>
+            <strong>{{ student.email or "Not provided" }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Student ID</span>
+            <strong>{{ student.id }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Account Type</span>
+            <strong>Student</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

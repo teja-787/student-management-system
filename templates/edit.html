@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Edit Student</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Edit Student Details</h1>
+        <p>Update student information</p>
+      </header>
+
+      <section class="card">
+        <form
+          action="{{ url_for('edit_student', id=student.id) }}"
+          method="POST"
+          class="student-form"
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+          <input
+            type="text"
+            name="name"
+            value="{{ student.name }}"
+            placeholder="Student Name"
+            required
+          />
+
+          <input
+            type="text"
+            name="roll_number"
+            value="{{ student.roll_number }}"
+            placeholder="Roll Number"
+            required
+          />
+
+          <input
+            type="text"
+            name="department"
+            value="{{ student.department }}"
+            placeholder="Department"
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            value="{{ student.email or '' }}"
+            placeholder="Email"
+          />
+
+          <button type="submit" class="btn primary">Save Changes</button>
+
+          <a href="/" class="btn secondary">Cancel</a>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

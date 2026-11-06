@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Create Student Account</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Create Student Login</h1>
+        <p>Admin account management</p>
+      </header>
+
+      <section class="card">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% for
+        category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %} {% endwith %} {% if students %}
+
+        <form action="/create-account" method="POST" class="account-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+          <label>Select Student</label>
+
+          <select name="student_id" required>
+            <option value="">Choose a student</option>
+
+            {% for student in students %}
+
+            <option value="{{ student.id }}">
+              {{ student.name }} - {{ student.roll_number }}
+            </option>
+
+            {% endfor %}
+          </select>
+
+          <label>Username</label>
+
+          <input
+            type="text"
+            name="username"
+            placeholder="Create username"
+            minlength="3"
+            required
+          />
+
+          <label>Password</label>
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Minimum 8 characters"
+            minlength="8"
+            required
+          />
+
+          <button type="submit" class="btn primary">Create Account</button>
+
+          <a href="/" class="btn secondary"> Back to Dashboard </a>
+        </form>
+
+        {% else %}
+
+        <p>
+          All existing students already have login accounts, or no students have
+          been added yet.
+        </p>
+
+        <a href="/" class="btn primary"> Back to Dashboard </a>
+
+        {% endif %}
+      </section>
+    </div>
+  </body>
+</html>
